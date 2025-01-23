@@ -1,4 +1,7 @@
-import 'package:fitlab_app/home/Screens/auth/signin.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitlab_app/home/Screens/Firbase/FirebaseServices.dart';
+import 'package:fitlab_app/home/Screens/presentation/homescreen.dart';
+import 'package:fitlab_app/home/Screens/presentation/mainpage.dart';
 import 'package:flutter/material.dart';
 
 class Signup extends StatelessWidget {
@@ -6,7 +9,30 @@ class Signup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController userController = TextEditingController();
+    TextEditingController emailController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
+
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.green,
+        foregroundColor: Colors.white,
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: IconButton(
+            onPressed: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => HomeScreen()),
+                (route) => false,
+              );
+            },
+            icon: Icon(Icons.arrow_back),
+          ),
+        ),
+        title: const Text("FitLab"),
+        centerTitle: true,
+      ),
       backgroundColor: const Color.fromARGB(255, 235, 235, 235),
       body: ListView(
         children: [
@@ -34,6 +60,7 @@ class Signup extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(18.0),
             child: TextField(
+              controller: userController,
               decoration: InputDecoration(
                   hintText: "Enter your username",
                   border: OutlineInputBorder(
@@ -44,6 +71,7 @@ class Signup extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(18.0),
             child: TextField(
+              controller: emailController,
               decoration: InputDecoration(
                   hintText: "Enter your email",
                   border: OutlineInputBorder(
@@ -54,6 +82,8 @@ class Signup extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(18.0),
             child: TextField(
+              obscureText: true,
+              controller: passwordController,
               decoration: InputDecoration(
                   hintText: "Enter your password",
                   border: OutlineInputBorder(
@@ -64,6 +94,7 @@ class Signup extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(18.0),
             child: TextField(
+              obscureText: true,
               decoration: InputDecoration(
                   hintText: "Enter your password again",
                   border: OutlineInputBorder(
@@ -71,16 +102,38 @@ class Signup extends StatelessWidget {
                   )),
             ),
           ),
-          SizedBox(height: 25,) ,
+          SizedBox(
+            height: 25,
+          ),
           Padding(
             padding: const EdgeInsets.all(30.0),
             child: ElevatedButton(
               style: ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(Colors.grey)),
-              onPressed: () {
+              onPressed: () async {
+                await Firebaseservices.signup(emailController.text.trim(),
+                    passwordController.text.trim(), context);
+                try {
+                  await Firebaseservices.signup(
+                    emailController.text.trim(),
+                    passwordController.text.trim(),
+                    context,
+                  );
+
+                  await Firebaseservices.saveUserData(
+                      userController.text.trim(),
+                      emailController.text.trim(),
+                      passwordController.text.trim(),
+                      context);
+                  print(FirebaseAuth.instance.currentUser);
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Error: ${e.toString()}")),
+                  );
+                }
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => Signin(),
+                    builder: (context) => Mainpage(),
                   ),
                 );
               },
@@ -93,8 +146,7 @@ class Signup extends StatelessWidget {
                     color: Colors.black),
               ),
             ),
-          ) , 
-            
+          ),
           Padding(
             padding: const EdgeInsets.all(30.0),
             child: ElevatedButton(
@@ -124,8 +176,8 @@ class Signup extends StatelessWidget {
                 ],
               ),
             ),
-          ) , 
-             Padding(
+          ),
+          Padding(
             padding: const EdgeInsets.all(30.0),
             child: ElevatedButton(
               style: ButtonStyle(
