@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1073081956852",
+    "project_id": "flutter-group-final-project",
+    "storage_bucket": "flutter-group-final-project.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1073081956852:android:bcf62ec307fbff7cb0a1a1",
+        "android_client_info": {
+          "package_name": "com.example.fitlab_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDY2zf8fM9BPU8dVbPwYLcnzP7sN2D1Sqk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
