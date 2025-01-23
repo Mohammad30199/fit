@@ -33,8 +33,9 @@ class HomeScreen extends StatelessWidget {
           SizedBox(
             height: 50,
           ),
-          ElevatedButton(style: ButtonStyle(
-                  backgroundColor: WidgetStatePropertyAll(Colors.grey)),
+          ElevatedButton(
+            style: ButtonStyle(
+                backgroundColor: WidgetStatePropertyAll(Colors.grey)),
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => Signin(),
@@ -52,8 +53,9 @@ class HomeScreen extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          ElevatedButton(style: ButtonStyle(
-                  backgroundColor: WidgetStatePropertyAll(Colors.grey)),
+          ElevatedButton(
+            style: ButtonStyle(
+                backgroundColor: WidgetStatePropertyAll(Colors.grey)),
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
